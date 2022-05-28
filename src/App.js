@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import CharacterDetail from './components/CharacterDetail';
+import Characters from './components/Characters';
+import ProtectedRoutes from './components/ProtectedRoutes';
+import UserInput from './components/UserInput';
+import './styles.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <div className='container mt-5'>
+        <Routes>
+          <Route element={<ProtectedRoutes/>}>
+              <Route path="/" element={<UserInput />} />
+              <Route path="/characters" element={<Characters />} />
+              <Route path="/characters/:id" element={<CharacterDetail />}  />
+          </Route>
+          
+        </Routes>
+      </div>
+    </HashRouter>
   );
-}
+};
 
 export default App;
