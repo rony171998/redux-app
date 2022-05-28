@@ -1,0 +1,111 @@
+
+
+.cards-container {
+    margin: auto;
+    width: 300px;
+    text-align: center;
+}
+
+.grid-father_container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+}
+
+.pokeCard {
+    background-color: white;
+    width: 300px;
+    display: inline-block;
+    margin: auto;
+    border-radius: 19px;
+    position: relative;
+    text-align: center;
+    box-shadow: -1px 15px 30px -12px black;
+    z-index: 9999;
+    margin-top: 30%;
+}
+
+.card-image_container {
+    position: relative;
+    height: 230px;
+    margin-bottom: 35px;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.card-image_pokemon {
+    background: linear-gradient(178.92deg, #7EC6C5 0.92%, #ABDAC6 47.96%, #CAE099 99.08%);
+}
+
+.card-image_pokemon img {
+    width: 320px;
+    position: absolute;
+    top: -65px;
+    left: -15px;
+    filter: drop-shadow(0px 10px 10px rgba( 0, 0, 0, 0.6))
+}
+
+.card_pokemon_type {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: rgb(rgb(27, 88, 54), green, blue)
+}
+
+.card-pokemon_name {
+    font-size: 26px;
+    color: black;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.card-pokemon_description {
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.card-stats {
+    color: white;
+    font-weight: 700;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+    
+}
+
+.card-stats .card-stat {
+    width: 40%;
+    float: left;
+    padding: 20px 15px;
+}
+
+.card-stats .stat-value {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.card-stats .value {
+    position: relative;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/*el color de stats*/
+.card-container_stats {
+    background-color: rgb(27, 88, 54);
+}
+
+/*Aquí se modificarán la lineas*/
+.card-container_stats .card-stat {
+    border-top: 1px solid rgb(15, 46, 29);
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
