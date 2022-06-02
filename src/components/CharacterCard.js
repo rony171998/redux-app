@@ -9,11 +9,10 @@ const CharacterCard = ({ characterUrl }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect((characterUrl) => {
     axios.get(characterUrl).then((res) => setCharacter(res.data));
   }, []);
 
-  //console.log(character);
 
   const getId = () => {
     dispatch(changePokemon(character.id));
