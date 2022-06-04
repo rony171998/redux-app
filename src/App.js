@@ -1,6 +1,6 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import CharacterDetail from './components/CharacterDetail';
-import Characters from './components/Characters';
+import PokemonDetail from "./components/PokemonDetail"
+import Pokedes from "./components/Pokedes"
 import ProtectedRoutes from './components/ProtectedRoutes';
 import UserInput from './components/UserInput';
 import './styles.css';
@@ -12,8 +12,8 @@ const App = () => {
         <Routes>
           <Route element={<ProtectedRoutes/>}>
               <Route path="/" element={<UserInput />} />
-              <Route path="/characters" element={<Characters />} />
-              <Route path="/characters/:id" element={<CharacterDetail />}  />
+              <Route path="/pokedes" element={<Pokedes />} />
+              <Route path="/pokedes/:id" element={<PokemonDetail />}  />
           </Route>
           
         </Routes>

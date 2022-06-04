@@ -9,20 +9,19 @@ const CharacterCard = ({ characterUrl }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect((characterUrl) => {
+  useEffect(() => {
     axios.get(characterUrl).then((res) => setCharacter(res.data));
-  }, []);
-
+  }, [characterUrl]);
 
   const getId = () => {
     dispatch(changePokemon(character.id));
-    navigate(`/characters/${character.id}`);
+    navigate(`/pokedes/${character.id}`);
   };
 
   return (
     <div className="card" key={character.id}>
       <div className="card-body">
-        <p onClick={getId}>{character.name} - {character.id} </p>
+        {/* <p onClick={getId}>{character.name} - {character.id} </p> */}
         <button onClick={getId}>{character.name}</button>
       </div>
     </div>

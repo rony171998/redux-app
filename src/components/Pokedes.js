@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import CharacterCard from "./CharacterCard";
+import PokemonCard from "./PokemonCard";
 import { useNavigate } from "react-router-dom";
 import {changePokemon} from "../store/slice/pokemon.slice";
 import { useDispatch } from "react-redux";
-
 
 const Characters = () => {
   const user = useSelector((state) => state.user);
@@ -21,10 +20,10 @@ const Characters = () => {
       .then((res) => setCharacters(res.data.results));
   }, []);
 
-  //console.log(characters);
+  console.log(characters)
   const getId = () => {
     dispatch(changePokemon(pokemon));
-    navigate(`/characters/${pokemon}`);
+    navigate(`/pokedes/${pokemon}`);
   };
   return (
     <div>
@@ -39,9 +38,10 @@ const Characters = () => {
         <option value="1">Luchador</option>
         <option value="2">Volador</option>
       </select>
-      {characters.map((character) => (
-        <div key={character.id}>
-          <CharacterCard characterUrl={character.url} /> 
+      {
+        characters.map((character) => (
+        <div key={character.name}>
+          <PokemonCard characterUrl={character.url} /> 
         </div>
          
       ))}

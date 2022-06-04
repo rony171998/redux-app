@@ -11,7 +11,7 @@ const UserInput = () => {
 
   const getName = () => {
     dispatch(changeUser(userName));
-    navigate("/characters");
+    navigate("/pokedes");
   };
   return (
     <div>

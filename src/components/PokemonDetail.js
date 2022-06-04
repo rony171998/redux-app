@@ -5,25 +5,24 @@ import { useSelector } from "react-redux";
 
 const CharacterDetail = () => {
 
-  const id = useSelector((state) => state.pokemon);
+  const pokemon = useSelector((state) => state.pokemon);
 
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${1}`)
+      .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
       .then((res) => setCharacters(res.data));
-  }, []);
+  }, [pokemon]);
 
-  console.log(id);
+  //console.log(pokemon);
 
   return (
     <div className="cards-container">
       <div className="grid-father_container">
         <div className="pokeCard">
           <div className="card-image_container card-image_pokemon">
-            <img src="https://www.pngarts.com/files/3/Bulbasaur-Transparent-Image.png" alt="Pokemon
-                  " />
+            {/* <img src="https://www.pngarts.com/files/3/Bulbasaur-Transparent-Image.png" alt="Pokemon" /> */}
           </div>
 
           <div className="card-pokemon_name">{characters.name} - {characters.id} </div>
