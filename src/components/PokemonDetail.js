@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changePokemon } from "../store/slice/pokemon.slice";
 
 
 const CharacterDetail = () => {
@@ -8,6 +11,8 @@ const CharacterDetail = () => {
   const pokemon = useSelector((state) => state.pokemon);
 
   const [characters, setCharacters] = useState([]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -15,14 +20,28 @@ const CharacterDetail = () => {
       .then((res) => setCharacters(res.data));
   }, [pokemon]);
 
-  //console.log(pokemon);
+  const getId = () => {
+    dispatch(changePokemon(pokemon+1));
+    navigate(`/pokedes/${pokemon+1}`);
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+      .then((res) => setCharacters(res.data));
+  };
+  const back = () => {
+    navigate(`/pokedes`);
+    
+  };
+
+  //console.log(characters.sprites?.other);
 
   return (
     <div className="cards-container">
       <div className="grid-father_container">
         <div className="pokeCard">
-          <div className="card-image_container card-image_pokemon">
-            {/* <img src="https://www.pngarts.com/files/3/Bulbasaur-Transparent-Image.png" alt="Pokemon" /> */}
+          <div className="card-image_container card-image_pokemon"> 
+            <img src={characters.sprites?.other.dream_world.front_default} alt="Pokemon" />
+            <button onClick={back}>volver</button>
+            <button onClick={getId}>Next Pokemon</button>  
           </div>
 
           <div className="card-pokemon_name">{characters.name} - {characters.id} </div>

@@ -3,12 +3,15 @@ import PokemonDetail from "./components/PokemonDetail"
 import Pokedes from "./components/Pokedes"
 import ProtectedRoutes from './components/ProtectedRoutes';
 import UserInput from './components/UserInput';
+import Footer from "./footer/Footer"
 import './styles.css';
 
 const App = () => {
+  document.body.style.background="pink";
   return (
-    <HashRouter>
-      <div className='container mt-5'>
+    
+    <HashRouter >
+      <div className='container mt-5' >
         <Routes>
           <Route element={<ProtectedRoutes/>}>
               <Route path="/" element={<UserInput />} />
@@ -17,8 +20,10 @@ const App = () => {
           </Route>
           
         </Routes>
+        <Footer/>
       </div>
     </HashRouter>
+    
   );
 };
 

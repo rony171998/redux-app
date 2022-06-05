@@ -22,6 +22,7 @@ const CharacterCard = ({ characterUrl }) => {
     <div className="card" key={character.id}>
       <div className="card-body">
         {/* <p onClick={getId}>{character.name} - {character.id} </p> */}
+        <img src={character.sprites?.front_default} alt="Pokemon" />
         <button onClick={getId}>{character.name}</button>
       </div>
     </div>

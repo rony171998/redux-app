@@ -11,40 +11,73 @@ const Characters = () => {
   const [pokemon,setPokemon]=useState("");
 
   const [characters, setCharacters] = useState([]);
+  const [types, setTypes] = useState([]);
+  const [limit, setLimit] = useState(20);
+  const [offset, setOffset] = useState(20);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon/`)
+      .get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`)
       .then((res) => setCharacters(res.data.results));
   }, []);
 
-  console.log(characters)
+  useEffect(() => {
+    axios
+      .get(`https://pokeapi.co/api/v2/type`)
+      .then((res) => setTypes(res.data.results));
+  }, []);
+
+  //console.log(types)
+
   const getId = () => {
     dispatch(changePokemon(pokemon));
     navigate(`/pokedes/${pokemon}`);
   };
+
+  const getNext = () => {
+    setLimit(+20)
+    setOffset(offset+20)
+    setCharacters([])
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`)
+      .then((res) => setCharacters(res.data.results));
+  };
+    /*const getTypes =()=>{
+      axios.get(`https://pokeapi.co/api/v2/type/1?offset=0&limit=20`)
+      .then((res) => setCharacters(res.data.pokemon));  
+    }*/
+  
   return (
     <div>
-      <h1>Characters</h1>
-      <p>Bienvenido {user}!</p>
+      <h1>Pokemons</h1>
+      <h2>Welcome {user}!</h2>
       <input type="text"
         value={pokemon}
         onChange={(e) => setPokemon(e.target.value)}/>
       <button onClick={getId}>Buscar</button>
-      <select>
+      <select >
         <option value="">Todos</option>
-        <option value="1">Luchador</option>
-        <option value="2">Volador</option>
-      </select>
+        {
+            types.map((types)=>(
+                <option value={types.id} key={types.name}>{types.name}</option>
+            ))
+        } 
+      </select><br />
+
+      <button onClick={getNext}>Siguiente pagina</button>
       {
+        
         characters.map((character) => (
         <div key={character.name}>
           <PokemonCard characterUrl={character.url} /> 
         </div>
          
       ))}
+
+      <button onClick={getNext}>Siguiente pagina</button>
     </div>
   );
 };
