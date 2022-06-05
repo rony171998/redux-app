@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PokemonCard from "./PokemonCard";
 import { useNavigate } from "react-router-dom";
-import {changePokemon} from "../store/slice/pokemon.slice";
+import { changePokemon } from "../store/slice/pokemon.slice";
 import { useDispatch } from "react-redux";
 
 const Characters = () => {
   const user = useSelector((state) => state.user);
-  const [pokemon,setPokemon]=useState("");
+  const [pokemon, setPokemon] = useState("");
 
   const [characters, setCharacters] = useState([]);
   const [types, setTypes] = useState([]);
@@ -56,7 +56,7 @@ const Characters = () => {
       <h2>Welcome {user}!</h2>
       <input type="text"
         value={pokemon}
-        onChange={(e) => setPokemon(e.target.value)}/>
+        onChange={(e) => setPokemon(e.target.value)} />
       <button onClick={getId}>Buscar</button>
       <select >
         <option value="">Todos</option>
