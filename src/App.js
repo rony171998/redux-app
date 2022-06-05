@@ -3,7 +3,7 @@ import PokemonDetail from "./components/PokemonDetail"
 import Pokedes from "./components/Pokedes"
 import ProtectedRoutes from './components/ProtectedRoutes';
 import UserInput from './components/UserInput';
-import './styles.css';
+import './App.css';
 
 const App = () => {
   return (

@@ -1,5 +1,6 @@
-
-
+.body{
+    
+}
 .cards-container {
     margin: auto;
     width: 300px;
@@ -35,13 +36,12 @@
 
 .card-image_pokemon {
     background: linear-gradient(178.92deg, #7EC6C5 0.92%, #ABDAC6 47.96%, #CAE099 99.08%);
+    justify-content: center;
+    align-items: center;
 }
 
 .card-image_pokemon img {
-    width: 320px;
-    position: absolute;
-    top: -65px;
-    left: -15px;
+    width: 210px;
     filter: drop-shadow(0px 10px 10px rgba( 0, 0, 0, 0.6))
 }
 
@@ -54,18 +54,25 @@
 }
 
 .card-pokemon_name {
+    padding: 10px;
     font-size: 26px;
     color: black;
     font-weight: 900;
     margin-bottom: 5px;
 }
-
+.card-pokemon_name:first-letter {
+    text-transform: uppercase;
+}
+body:first-letter{
+    text-transform: uppercase;
+}
 .card-pokemon_description {
     padding: 20px;
     margin-bottom: 10px;
 }
 
 .card-stats {
+    margin-top: 30px;
     color: white;
     font-weight: 700;
     border-bottom-left-radius: 14px;
@@ -74,7 +81,7 @@
 }
 
 .card-stats .card-stat {
-    width: 40%;
+    width: 50%;
     float: left;
     padding: 20px 15px;
 }
