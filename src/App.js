@@ -3,11 +3,8 @@ import PokemonDetail from "./components/PokemonDetail"
 import Pokedes from "./components/Pokedes"
 import ProtectedRoutes from './components/ProtectedRoutes';
 import UserInput from './components/UserInput';
-import Footer from "./footer/Footer"
-import './styles.css';
 
 const App = () => {
-  document.body.style.background="pink";
   return (
     
     <HashRouter >
@@ -20,7 +17,6 @@ const App = () => {
           </Route>
           
         </Routes>
-        <Footer/>
       </div>
     </HashRouter>
     
