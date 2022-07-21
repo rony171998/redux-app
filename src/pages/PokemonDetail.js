@@ -1,20 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Container, ProgressBar, Row } from "react-bootstrap";
+import { Card, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { PokemonStatsRadar , PokemonStatsBar} from "../components";
+import PokemonMoves from "../components/PokemonMoves";
 
-const CharacterDetail = () => {
-    const pokemon = useSelector(state => state.pokemon);
+const PokemonDetail = () => {
+    const idpokemon = useSelector(state => state.idPokemon);
+    const navigate = useNavigate();
 
     const [characters, setCharacters] = useState([]);
     const [colorBackground, setColorBackground] = useState("");
 
     useEffect(() => {
-        axios
-            .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-            .then(res => setCharacters(res.data));
+        
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${idpokemon}`)
+            .then(res => setCharacters(res.data))
+            .catch(() => navigate("/pokedes"));
             
-    }, [pokemon]);
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${idpokemon}`)
+        .then(res => setColorBackground(res.data.types?.[0].type.name));           
+            
+    }, [idpokemon , navigate]);
 
     const toUpperFirtLetter = str => {
         if (str !== undefined) {
@@ -104,15 +112,24 @@ const CharacterDetail = () => {
         }
     ] 
 
-    const getType = type => {
-        const color = typeColor.find(item => item.type === type);
+    const getColor = () => { 
+        if (colorBackground !== ""){
+            return typeColor.find(type => type.type === colorBackground).color;
+        } 
+                 
+    }
+    const getColorType = (type) => {        
+        const color = typeColor.find(item => item.type === type);       
         return color.color;
                  
+    }
+    const getOut=()=>{
+        navigate("/pokedes");
     }
 
     return (
         <Container>
-            <Card className="mb-5">
+            <Card className="">
                 <svg
                     
                     viewBox="0 0 1440 203"
@@ -184,24 +201,32 @@ const CharacterDetail = () => {
                             />
                         </filter>
                     </defs>
-                </svg>
+                </svg> 
+                <Card.Img className="mx-5 my-0" style={{width:"2rem",cursor:"pointer"}} 
+                src="https://cdn-icons-png.flaticon.com/512/1828/1828395.png"
+                onClick={getOut} />
+                    
 
                 <Card.Body align="center">
-                    <Card.Img
+                   <Card.Img
                         className="center-block"
                         variant="top"
-                        src={
-                            characters.sprites?.other.dream_world.front_default
-                        }
+                        src={characters.sprites?.other.dream_world.front_default}
                         alt="pokemon"
                         style={{ width: "15rem", height: "15rem" }}
                     ></Card.Img>
                     <Card.Title>
                         <h1>#{characters.id}</h1>
-                        <h1>{toUpperFirtLetter(characters.name) }</h1>
+                        <h1>{
+                                characters.name === undefined ? 
+                                "Pokemon no found Go back"
+                                
+                                : toUpperFirtLetter(characters.name)
+                                 
+                        }</h1>
                     </Card.Title>
 
-                    <Row xs={1} md={2} className="g-0">
+                    <Row md={2} className="g-0">
 
                         <Col>
                             <Card.Title>Types</Card.Title>
@@ -210,14 +235,11 @@ const CharacterDetail = () => {
                                     return (
                                         
                                         <Card.Text className="p-2 rounded-pill" key={type.type.name}
-                                            style={{backgroundColor: getType(type.type.name) , height: "2.5rem"}}
+                                            style={{backgroundColor: getColorType(type.type.name) , height: "2.5rem"}}
                                         >
                                             {
                                                 toUpperFirtLetter(type.type.name)                                         
-                                            }
-                                            {
-                                                ()=> setColorBackground(getType(type.type.name))
-                                            }
+                                            }                                                                                       
                                             
                                         </Card.Text>
                                         
@@ -241,52 +263,34 @@ const CharacterDetail = () => {
                         </Col>
                         
                     </Row>
-                    
-                    <Row className="g-0 p-5">
-                       <Card.Title>Stast</Card.Title> 
-                       {characters.stats?.map(stat => {
-                        return (
-                            <Card.Body key={stat.stat.name}>
-                                <Card.Text align="left">
-                                    {toUpperFirtLetter(stat.stat.name)} {stat.base_stat}
-                                </Card.Text>
-                                <ProgressBar>
-                                    <ProgressBar
-                                        animated                 
-                                        now={stat.base_stat}
-                                        style={{backgroundColor: colorBackground}}
-                                    />
-                                    <br />
-                                </ProgressBar>
-                            </Card.Body>
-                        );
-                    })} 
-                    </Row>
-                    
-
-                    
+                                                                              
                 </Card.Body>
             </Card>
-            <Card>
-                <Card.Body align="center">
-                   <Card.Title>
-                    <h1>Movements</h1>                    
-                    </Card.Title>
-                    <Row md="auto" className="g-0 p-5">
-                        {characters.moves?.map(stat => {
-                            return (
-                                <Card.Text className="p-2 rounded-pill bg-light" key={stat.move.name} 
-                                    style={{backgroundColor: colorBackground}}
-                                >
-                                    {toUpperFirtLetter(stat.move.name)}
-                                </Card.Text>
-                            );
-                        })}
-                    </Row> 
-                </Card.Body>
-            </Card>
+            <Tabs
+                defaultActiveKey="home"
+                id="justify-tab-example"
+                className=""
+                justify
+                >
+                <Tab eventKey="home" title="Stast Radar">
+                    <PokemonStatsRadar pokemon={characters} getColor={getColor} toUpperFirtLetter={toUpperFirtLetter}/>
+            
+                </Tab>
+                <Tab eventKey="profile" title="Stats Bar">
+                    <PokemonStatsBar pokemon={characters} getColor={getColor} toUpperFirtLetter={toUpperFirtLetter}/>                   
+            
+                </Tab>
+                <Tab eventKey="longer-tab" title="Movements">
+                    <PokemonMoves pokemon={characters} toUpperFirtLetter={toUpperFirtLetter} getColor={getColor}/>
+                </Tab>
+                
+            </Tabs>
+            
+            
+            
+            
         </Container>
     );
 };
 
-export default CharacterDetail;
+export default PokemonDetail;
